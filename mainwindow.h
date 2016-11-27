@@ -15,15 +15,16 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();   
 
-    void on_Reset_clicked();
 
 protected:
     void keyPressEvent(QKeyEvent *event);
+    //enables closing with "Esc" key
 
 
 private slots:
 
     void on_Rotate_clicked();
+    //toggles between non-rotating and rotating mode
 
 private:
 

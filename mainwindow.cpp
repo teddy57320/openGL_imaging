@@ -9,13 +9,13 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    connect(ui->widget, SIGNAL(xRotationChanged(int)), ui->xSlider, SLOT(setValue(int)));
-    connect(ui->widget, SIGNAL(yRotationChanged(int)), ui->ySlider, SLOT(setValue(int)));
-
-
     ui->xSlider->setRange(0, 360*16);
     ui->ySlider->setRange(0, 360*16);
+    //sets the range of the slider
 
+    connect(ui->xSlider, SIGNAL(valueChanged(int)), ui->widget, SLOT(setXRotation(int)));
+    connect(ui->ySlider, SIGNAL(valueChanged(int)), ui->widget, SLOT(setYRotation(int)));
+    //when slider value is changed --> call setXRotation or setYRotation
 
 }
 
@@ -25,23 +25,12 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::on_Reset_clicked()
-{
-
-    /*ui->widget->xRot = -(ui->widget->x_displace);
-    ui->widget->yRot = -(ui->widget->y_displace);
-    update();*/
-
-}
-
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_Escape)
             close();
-        else
-        QWidget::keyPressEvent(event);
+    //closes window upon pressing "Esc"
 }
-
 
 
 void MainWindow::on_Rotate_clicked()
@@ -49,16 +38,22 @@ void MainWindow::on_Rotate_clicked()
 
 
     QCursor cursor;
-    if(!(ui->widget->rotating))
-      {
+    if(!(ui->widget->rotating)){
+
       cursor.setShape(Qt::ClosedHandCursor);
       ui->widget->rotating = true;
+      //switche to rotating mode
+
       }
     else
       {
+
       cursor.setShape(Qt::ArrowCursor);
       ui->widget->rotating = false;
+      //switch to non-rotating mode
+
       }
     this->setCursor(cursor);
+    //switches cursor appearance
 
 }
