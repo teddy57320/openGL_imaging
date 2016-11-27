@@ -16,10 +16,10 @@ public:
     explicit GLWidget(QWidget *parent = 0);
 
     void readCoordinates();
-    //reads XYZ file to obtain XYZ coordinates of all the points (from "XYZ.txt")
+    //read connectiivty file togather XYZ coordinates of all the points (from "XYZ.txt")
 
     void readConnectivity();
-    //reads instructions on how to connect the individual points (from "CONN.txt")
+    //read instructions on how to connect the individual points (from "CONN.txt")
 
     void mousePressEvent(QMouseEvent* ev);
     void mouseMoveEvent(QMouseEvent* ev);
@@ -57,10 +57,10 @@ protected:
 public slots:
 
     void setXRotation(int angle);
-    //modifies xRot
+    //modify xRot
 
     void setYRotation(int angle);
-    //modiefies yRot
+    //modiefy yRot
 };
 
 #endif // GLWIDGET_H

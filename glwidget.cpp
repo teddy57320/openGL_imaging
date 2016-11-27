@@ -99,8 +99,6 @@ void GLWidget::readConnectivity(){
     }
 }
 
-
-
 void GLWidget::mousePressEvent(QMouseEvent *ev)
 {
     if(rotating){
@@ -108,8 +106,6 @@ void GLWidget::mousePressEvent(QMouseEvent *ev)
     }
     //when in rotation mode: if mouse is pressed, then store
     //the current mouse position
-
-
 }
 
 void GLWidget::mouseMoveEvent(QMouseEvent *ev)
@@ -147,6 +143,9 @@ void GLWidget::draw()
         {
             glVertex3f(coordinates[connectivity[i].x()-1].x(), coordinates[connectivity[i].x()-1].y(), coordinates[connectivity[i].x()-1].z());
             glVertex3f(coordinates[connectivity[i].y()-1].x(), coordinates[connectivity[i].y()-1].y(), coordinates[connectivity[i].y()-1].z());
+        //the example file "CONN.txt" starts counting indices from 1
+        //so we must subtract 1 to get the actual indices in the vector
+
         }
     glEnd();
     //draws connecting lines between vertices in blue
@@ -165,13 +164,11 @@ void GLWidget::draw()
     glDisable(GL_POINT_SMOOTH);
 }
 
-
 void GLWidget::initializeGL(){
 
     initializeOpenGLFunctions();
     glClearColor(1, 1, 1, 1);
     //sets background color white
-
 }
 
 void GLWidget::paintGL(){
@@ -180,13 +177,11 @@ void GLWidget::paintGL(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
-
     glRotatef(xRot/16, 1, 0 ,0);
     glRotatef(yRot/16, 0, 1 ,0);
     //rotate by an amount of xRot and yRot, with appropriate scaling
 
     draw();
-    //calls draw function
 }
 
 void GLWidget::resizeGL(int w, int h){

@@ -20,11 +20,11 @@ protected:
     void keyPressEvent(QKeyEvent *event);
     //enables closing with "Esc" key
 
-
 private slots:
 
     void on_Rotate_clicked();
     //toggles between non-rotating and rotating mode
+    //"Rotate" is a custom set name for the toggle rotate button
 
 private:
 
