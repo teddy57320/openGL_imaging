@@ -5,10 +5,20 @@
 GLWidget::GLWidget(QWidget *parent) :
     QOpenGLWidget(parent)
 {
-    //initialize class variables
+
     xRot = 0;
     yRot = 0;
+    zRot = 0;
+    xZoom = 1;
+    yZoom = 1;
+    zZoom = 1;
     rotating = false;
+    zooming = false;
+    //initialize class variables
+
+    readCoordinates();
+    readConnectivity();
+    //initialize vectors
 }
 
 void GLWidget::readCoordinates(){
@@ -20,7 +30,6 @@ void GLWidget::readCoordinates(){
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QTextStream stream(&file);
-
         QString line;
 
         //iterating through each line
@@ -46,7 +55,8 @@ void GLWidget::readCoordinates(){
                     if (i==2){
                         point->setZ(list[i].toFloat()/750);
                     }
-                    //collecting X, Y, and Z coordinates and scaling appropriately
+                    //collecting X, Y, and Z coordinates and scaling appropriately (dividing by 750)
+                    //scaling should be changed depending on magnitude of coordinates
                 }
             }
             coordinates.push_back(*point);
@@ -106,6 +116,25 @@ void GLWidget::mousePressEvent(QMouseEvent *ev)
     }
     //when in rotation mode: if mouse is pressed, then store
     //the current mouse position
+
+    if(zooming){
+        if (ev->buttons() & Qt::LeftButton)
+        {
+            xZoom = xZoom * 1.5;
+            yZoom = yZoom * 1.5;
+            zZoom = zZoom * 1.5;
+            update();
+        }
+        if (ev->buttons() & Qt::RightButton)
+        {
+            xZoom = xZoom * 2/3;
+            yZoom = yZoom * 2/3;
+            zZoom = zZoom * 2/3;
+            update();
+        }
+    }
+    //when in zooming mode: if left mouse button is pressed, increase zoom factor
+    //if right mouse button is pressed, decrease zoom factor
 }
 
 void GLWidget::mouseMoveEvent(QMouseEvent *ev)
@@ -129,10 +158,6 @@ void GLWidget::draw()
 {
 
     initializeOpenGLFunctions();
-
-    readCoordinates();
-    readConnectivity();
-    //initializing vectors
 
     glEnable(GL_POINT_SMOOTH);
 
@@ -182,9 +207,13 @@ void GLWidget::paintGL(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
+    glScalef(xZoom, yZoom, zZoom);
+    //apply zooming factor
+
     glRotatef(xRot/16, 1, 0 ,0);
     glRotatef(yRot/16, 0, 1 ,0);
-    //rotate by an amount of xRot and yRot, with appropriate scaling
+    glRotatef(zRot/16, 0, 0, 1);
+    //rotate by an amount of xRot, yRot, and zRot, with appropriate scaling
 
     draw();
 }
@@ -194,11 +223,8 @@ void GLWidget::resizeGL(int w, int h){
     initializeOpenGLFunctions();
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
-
     glLoadIdentity();
-
     glOrtho(0, w, h, 0, -1, -1);
-
     glMatrixMode(GL_MODELVIEW);
     glEnable(GL_TEXTURE_3D);
     glEnable(GL_BLEND);
@@ -231,6 +257,16 @@ void GLWidget::setYRotation(int angle)
     qNormalizeAngle(angle);
     if (angle != yRot) {
         yRot = angle;
+        update();
+    }
+    //changes yRot and updates the image
+}
+
+void GLWidget::setZRotation(int angle)
+{
+    qNormalizeAngle(angle);
+    if (angle != zRot) {
+        zRot = angle;
         update();
     }
     //changes yRot and updates the image

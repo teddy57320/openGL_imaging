@@ -11,12 +11,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->xSlider->setRange(0, 360*16);
     ui->ySlider->setRange(0, 360*16);
-    //set the range of the slider
-    //"xSlider" and "ySlider" are the custom set names of the sliders
+    ui->zSlider->setRange(0, 360*16);
+    //sets the ranges of the sliders
 
     connect(ui->xSlider, SIGNAL(valueChanged(int)), ui->widget, SLOT(setXRotation(int)));
     connect(ui->ySlider, SIGNAL(valueChanged(int)), ui->widget, SLOT(setYRotation(int)));
-    //when slider value is changed --> call setXRotation or setYRotation
+    connect(ui->zSlider, SIGNAL(valueChanged(int)), ui->widget, SLOT(setZRotation(int)));
+    //when value of xSlider is changed, call setXRotation();
+    //same with ySlider and zSlider
+
 }
 
 MainWindow::~MainWindow()
@@ -31,6 +34,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     //closes window upon pressing "Esc"
 }
 
+
 void MainWindow::on_Rotate_clicked()
 {
     QCursor cursor;
@@ -38,17 +42,42 @@ void MainWindow::on_Rotate_clicked()
 
       cursor.setShape(Qt::ClosedHandCursor);
       ui->widget->rotating = true;
+      ui->widget->zooming = false;
       //switch to rotating mode
 
       }
     else
       {
+
       cursor.setShape(Qt::ArrowCursor);
       ui->widget->rotating = false;
       //switch to non-rotating mode
 
       }
-
     this->setCursor(cursor);
     //switch cursor appearance
+}
+
+void MainWindow::on_Zoom_pressed()
+{
+    QCursor cursor;
+    if(!(ui->widget->zooming)){
+
+      cursor.setShape(Qt::SizeAllCursor);
+      ui->widget->zooming = true;
+      ui->widget->rotating = false;
+      //switch to zooming mode
+
+      }
+    else
+      {
+
+      cursor.setShape(Qt::ArrowCursor);
+      ui->widget->zooming = false;
+      //switch to non-zooming mode
+
+      }
+    this->setCursor(cursor);
+    //switch cursor appearance
+
 }

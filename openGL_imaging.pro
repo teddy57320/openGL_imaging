@@ -19,3 +19,5 @@ HEADERS  += mainwindow.h \
     glwidget.h
 
 FORMS    += mainwindow.ui
+
+DISTFILES +=

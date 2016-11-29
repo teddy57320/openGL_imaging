@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>603</width>
-    <height>427</height>
+    <width>678</width>
+    <height>473</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,8 +32,8 @@
       <widget class="QPushButton" name="Rotate">
        <property name="geometry">
         <rect>
-         <x>40</x>
-         <y>350</y>
+         <x>220</x>
+         <y>410</y>
          <width>141</width>
          <height>31</height>
         </rect>
@@ -48,70 +48,109 @@
         <string>Rotate Toggle</string>
        </property>
       </widget>
-      <widget class="QWidget" name="layoutWidget">
+      <widget class="QPushButton" name="Zoom">
        <property name="geometry">
         <rect>
-         <x>300</x>
-         <y>321</y>
-         <width>261</width>
-         <height>81</height>
+         <x>50</x>
+         <y>410</y>
+         <width>131</width>
+         <height>31</height>
         </rect>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
+       <property name="text">
+        <string>Zoom</string>
+       </property>
+      </widget>
+      <widget class="QWidget" name="">
+       <property name="geometry">
+        <rect>
+         <x>411</x>
+         <y>311</y>
+         <width>231</width>
+         <height>141</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QSlider" name="xSlider">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>X-rotation</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Y-rotation</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Z-rotation</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
-         <widget class="QSlider" name="ySlider">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QSlider" name="xSlider">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSlider" name="ySlider">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSlider" name="zSlider">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>
-      <widget class="QLabel" name="label">
-       <property name="geometry">
-        <rect>
-         <x>220</x>
-         <y>330</y>
-         <width>47</width>
-         <height>12</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>X-rotation</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_2">
-       <property name="geometry">
-        <rect>
-         <x>220</x>
-         <y>370</y>
-         <width>47</width>
-         <height>12</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Y-rotation</string>
-       </property>
-      </widget>
+      <zorder>Rotate</zorder>
+      <zorder>layoutWidget</zorder>
+      <zorder>label</zorder>
+      <zorder>label_2</zorder>
+      <zorder>Zoom</zorder>
+      <zorder>label</zorder>
+      <zorder>layoutWidget</zorder>
+      <zorder></zorder>
+      <zorder>label_3</zorder>
+      <zorder>zSlider</zorder>
      </widget>
     </item>
    </layout>

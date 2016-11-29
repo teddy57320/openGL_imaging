@@ -16,10 +16,10 @@ public:
     explicit GLWidget(QWidget *parent = 0);
 
     void readCoordinates();
-    //read connectiivty file togather XYZ coordinates of all the points (from "XYZ.txt")
+    //reads XYZ file to obtain XYZ coordinates of all the points (from "XYZ.txt")
 
     void readConnectivity();
-    //read instructions on how to connect the individual points (from "CONN.txt")
+    //reads instructions on how to connect the individual points (from "CONN.txt")
 
     void mousePressEvent(QMouseEvent* ev);
     void mouseMoveEvent(QMouseEvent* ev);
@@ -29,10 +29,13 @@ public:
     std::vector<QVector2D> connectivity;
     //vectors holding the coordinates and connectivty relations
 
-    double xRot, yRot;
+    double xRot, yRot, zRot;
     //angle of rotation of original image
 
-    bool rotating;
+    double xZoom, yZoom, zZoom;
+    //factor of zooming
+
+    bool rotating, zooming;
     //used to enter and exit rotation mode with mouse
 
 private:
@@ -57,10 +60,13 @@ protected:
 public slots:
 
     void setXRotation(int angle);
-    //modify xRot
+    //modifies xRot
 
     void setYRotation(int angle);
-    //modiefy yRot
+    //modifies yRot
+
+    void setZRotation(int angle);
+    //modifies zRot
 };
 
 #endif // GLWIDGET_H
