@@ -60,7 +60,7 @@ void GLWidget::readCoordinates(){
 }
 
 void GLWidget::readConnectivity(){
-    QFile file("C:/Users/Ted Huang/Desktop/CONN.txt");
+    QFile file("C:/Users/Ted Huang/Desktop/Git/qt_openGL_imaging/CONN.txt");
     //finds file containing connectivity instructions
     //***directory should be changed accordingly****
 
@@ -135,23 +135,28 @@ void GLWidget::draw()
     //initializing vectors
 
     glEnable(GL_POINT_SMOOTH);
+
     glColor3f(0, 0, 1);
     //set color to blue
 
     glBegin(GL_LINES);
         for (int i = 0; i < connectivity.size(); i++)
         {
-            glVertex3f(coordinates[connectivity[i].x()-1].x(), coordinates[connectivity[i].x()-1].y(), coordinates[connectivity[i].x()-1].z());
-            glVertex3f(coordinates[connectivity[i].y()-1].x(), coordinates[connectivity[i].y()-1].y(), coordinates[connectivity[i].y()-1].z());
-        //the example file "CONN.txt" starts counting indices from 1
-        //so we must subtract 1 to get the actual indices in the vector
+            int index1 = connectivity[i].x()-1;
+            int index2 = connectivity[i].y()-1;
+            //the example file "CONN.txt" starts counting indices from 1
+            //so we must subtract 1 to get the actual indices of the coordinates in the coordinates vector
 
+            glVertex3f(coordinates[index1].x(), coordinates[index1].y(), coordinates[index1].z());
+            glVertex3f(coordinates[index2].x(), coordinates[index2].y(), coordinates[index2].z());
+            //draw a connecting line between the first and second coordinate
         }
+
     glEnd();
-    //draws connecting lines between vertices in blue
+
 
     glColor3f(1, 0, 0);
-    //set color to blue
+    //set color to red
 
     glBegin(GL_POINTS);
         for (int i = 0; i < coordinates.size(); i++)
