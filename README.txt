@@ -39,4 +39,7 @@ Other notes:
 -Pressing "Toggle Rotate" will toggle between non-rotating and rotating modes.
  In rotating mode, click and drag to rotate the image. 
 
+-Pressing "Zoom" will toggle between normal and zooming modes. Left clicking in 
+ zooming mode will zoom in to the image, while right clicking will zoom out. 
+
 -The efficiency of this program has room for improvement.

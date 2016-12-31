@@ -5,7 +5,6 @@
 GLWidget::GLWidget(QWidget *parent) :
     QOpenGLWidget(parent)
 {
-
     xRot = 0;
     yRot = 0;
     zRot = 0;
@@ -23,7 +22,7 @@ GLWidget::GLWidget(QWidget *parent) :
 
 void GLWidget::readCoordinates(){
 
-    QFile file("C:/Users/Ted Huang/Desktop/Qt/openGL_imaging/XYZ.txt");
+    QFile file("C:/Users/Ted Huang/Desktop/Git/qt_openGL_imaging/XYZ.txt");
     //finds file containing coordinates
     //***directory should be changed accordingly****
 
@@ -41,19 +40,20 @@ void GLWidget::readCoordinates(){
             //manipulates text file to create a list of numbers
 
             QVector3D *point = new QVector3D();
-
             for (int i = 0; i < list.size(); i++)
             {
-                if (list[i] != "")
-                {
+                if (list[i] != ""){
                     if (i==0){
-                        point->setX((list[i].toFloat()/750));
+                        float x = list[i].toFloat()/750;
+                        point->setX(x);
                     }
                     if (i==1){
-                        point->setY((list[i].toFloat()/750));
+                        float y = list[i].toFloat()/750;
+                        point->setY(y);
                     }
                     if (i==2){
-                        point->setZ(list[i].toFloat()/750);
+                        float z = list[i].toFloat()/750;
+                        point->setZ(z);
                     }
                     //collecting X, Y, and Z coordinates and scaling appropriately (dividing by 750)
                     //scaling should be changed depending on magnitude of coordinates
@@ -63,9 +63,7 @@ void GLWidget::readCoordinates(){
             //add point to coordinates
 
         }while(!line.isNull());
-        //while the line isn't blank, keep iterating
-
-        file.close();
+        //keep iterating until the last line is reached
     }
 }
 
@@ -87,23 +85,20 @@ void GLWidget::readConnectivity(){
             //creates list of numbers in each line
 
             QVector2D *connection = new QVector2D();
-
             for (int i = 0; i < list.size(); i++)
             {
                 if (list[i] != "")
                 {
-                    if (i==0){
+                    if (i==0)
                         connection->setX(list[i].toFloat());
-                    }
-                    if (i==1){
+                    if (i==1)
                         connection->setY(list[i].toFloat());
-                    }
                 }
             }
             connectivity.push_back(*connection);
 
         }while(!line.isNull());
-        //keep iterating until no more lines exist
+        //keep iterating until the last line is reached
 
         file.close();
     }
@@ -158,36 +153,30 @@ void GLWidget::draw()
 {
 
     initializeOpenGLFunctions();
-
     glEnable(GL_POINT_SMOOTH);
 
     glColor3f(0, 0, 1);
     //set color to blue
 
     glBegin(GL_LINES);
-        for (int i = 0; i < connectivity.size(); i++)
+        for (unsigned int i = 0; i < connectivity.size(); i++)
         {
-            int index1 = connectivity[i].x()-1;
-            int index2 = connectivity[i].y()-1;
-            //the example file "CONN.txt" starts counting indices from 1
-            //so we must subtract 1 to get the actual indices of the coordinates in the coordinates vector
+            int index1 = connectivity[i].x();
+            int index2 = connectivity[i].y();
+            //indices of the points in the coordinates vector
 
             glVertex3f(coordinates[index1].x(), coordinates[index1].y(), coordinates[index1].z());
             glVertex3f(coordinates[index2].x(), coordinates[index2].y(), coordinates[index2].z());
             //draw a connecting line between the first and second coordinate
         }
-
     glEnd();
-
 
     glColor3f(1, 0, 0);
     //set color to red
 
     glBegin(GL_POINTS);
-        for (int i = 0; i < coordinates.size(); i++)
-        {
+        for (unsigned int i = 0; i < coordinates.size(); i++)
             glVertex3f(coordinates[i].x(), coordinates[i].y(), coordinates[i].z());
-        }
     glEnd();
     //draws the vertices in red
 
@@ -271,5 +260,3 @@ void GLWidget::setZRotation(int angle)
     }
     //changes yRot and updates the image
 }
-
-

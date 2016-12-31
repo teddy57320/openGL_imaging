@@ -2,9 +2,8 @@
 #define GLWIDGET_H
 
 #include <QOpenGLWidget>
-#include <QVector3D>
-#include <QVector2D>
-#include <vector>
+#include <QtGui>
+#include <Qvector>
 #include <QMouseEvent>
 #include <QOpenGLFunctions_3_2_Compatibility>
 
